@@ -5,12 +5,10 @@ orbs:
 
 jobs:
   build:
-    working_directory: ~/jekyll_uno
     docker:
       - image: circleci/ruby
     steps:
-      - checkout:
-          path: ~
+      - checkout
       - run:
           name: install bundler
           command: 'gem install bundler'
@@ -19,7 +17,7 @@ jobs:
           command: 'pwd && ls -al'
       - run:
           name: run bundler install
-          command: 'bundle install'
+          command: 'cd ~/jekyll_uno && bundle install'
 
 workflows:
   version: 2
