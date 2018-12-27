@@ -24,6 +24,10 @@ jobs:
           command: 'tar -cvf ~/blog/build.tar ~/blog/jekyll-uno/_site'
       - store_artifacts:
           path: '~/blog/build.tar'
+      - save_cache:
+          key: assets-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/blog/jekyll-uno/_site/
 
   # uat:
   #   working_directory: ~/blog
