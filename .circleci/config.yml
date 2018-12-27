@@ -47,6 +47,6 @@ workflows:
   build_jekyll:
     jobs:
       - build
-      - deploy
+      - deploy:
           requires:
             - build
