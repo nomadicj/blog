@@ -40,7 +40,7 @@ jobs:
           key: assets-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy to S3
-          command: 'aws s3 sync ~/blog/jekyll-uno/_site/ s3://armstro.co/ --delete'
+          command: 'aws s3 sync ~/blog/jekyll-uno/_site/ s3://armstro.co/ --delete --cache-control max-age=600'
 
 workflows:
   version: 2
