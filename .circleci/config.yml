@@ -22,7 +22,7 @@ jobs:
       - run:
           name: build site
           command: 'cd ~/blog/jekyll-uno && jekyll build'
-      - rum:
+      - run:
           name: create artefact
           command: 'tar -cvf $CIRCLE_BRANCH-$CIRCLE_BUILD_NUM.tar ~/blog/jekyll-uno/_site'
       - store_artifacts:
