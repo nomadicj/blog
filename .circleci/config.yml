@@ -17,7 +17,7 @@ jobs:
           command: 'pwd && ls -al'
       - run:
           name: run bundler install
-          command: 'cd ~/jekyll_uno && bundle install'
+          command: 'cd ~/jekyll-uno && bundle install'
 
 workflows:
   version: 2
