@@ -21,12 +21,9 @@ jobs:
           command: 'cd ~/blog/jekyll-uno && jekyll build'
       - run:
           name: create artefact
-          command: 'tar -cvf ~/blog/$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM.tar ~/blog/jekyll-uno/_site'
-      - run:
-          name: location diagnostics
-          command: 'pwd && ls -al && tree'
+          command: 'tar -cvf ~/blog/build.tar ~/blog/jekyll-uno/_site'
       - store_artifacts:
-          path: '~/blog/$CIRCLE_BRANCH-$CIRCLE_BUILD_NUM.tar'
+          path: '~/blog/build.tar'
 
   # uat:
   #   working_directory: ~/blog
