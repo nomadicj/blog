@@ -7,3 +7,12 @@ workflows:
     "Hello Workflow":
         jobs:
           - hello/hello-build
+    build:
+      docker:
+        - image: circleci/ruby
+    steps:
+      - checkout
+      - run:
+        name: install jekyll
+        command: gem install bundler
+        command: bundle install
