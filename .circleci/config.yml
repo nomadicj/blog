@@ -5,6 +5,7 @@ orbs:
 
 jobs:
   build:
+    working_directory: ~/jekyll_uno
     docker:
       - image: circleci/ruby
     steps:
