@@ -10,11 +10,11 @@ jobs:
     steps:
       - checkout
       - run:
-        name: install bundler
-        command: 'gem install bundler'
+          name: install bundler
+          command: 'gem install bundler'
       - run:
-        name: run bundler install
-        command: 'bundle install'
+          name: run bundler install
+          command: 'bundle install'
 
 workflows:
   version: 2
