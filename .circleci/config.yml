@@ -22,7 +22,12 @@ jobs:
       - run:
           name: build site
           command: 'cd ~/blog/jekyll-uno && jekyll build'
-
+  uat:
+    working_directory: ~/blog
+    steps:
+      - run:
+          name: s3sync
+          command: 'aws s3 sync jekyll-uno/_site/ s3://armstro.co/'
 workflows:
   version: 2
   build_jekyll:
