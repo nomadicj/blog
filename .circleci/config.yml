@@ -19,6 +19,9 @@ jobs:
       - run:
           name: run bundler install
           command: 'cd ~/blog/jekyll-uno && bundle install'
+      - run:
+          name: build site
+          command: 'cd ~/blog/jekyll-uno && jekyll build'
 
 workflows:
   version: 2
