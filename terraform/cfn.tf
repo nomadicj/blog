@@ -1,7 +1,7 @@
 resource "aws_cloudfront_distribution" "cdn" {
   origin {
     origin_id   = "${var.domain}"
-    domain_name = "${var.domain}.s3.amazonaws.com"
+    domain_name = "${aws_s3_bucket.site.bucket_regional_domain_name}"
   }
 
   # If using route53 aliases for DNS we need to declare it here too, otherwise we'll get 403s.
@@ -10,13 +10,20 @@ resource "aws_cloudfront_distribution" "cdn" {
   enabled             = true
   default_root_object = "index.html"
 
+  logging_config {
+    include_cookies = false
+    bucket          = "armstrong-s3-logs.s3.amazonaws.com"
+    prefix          = "${var.domain}-cf/"
+  }
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "${var.domain}"
 
     forwarded_values {
-      query_string = true
+      query_string = false
+
       cookies {
         forward = "none"
       }
@@ -26,6 +33,8 @@ resource "aws_cloudfront_distribution" "cdn" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
   }
 
   # The cheapest priceclass
