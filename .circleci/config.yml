@@ -37,10 +37,10 @@ jobs:
       - checkout
       - run:
           name: initiate terraform
-          command: 'terraform init -backend-config=armstro.co.backend.tfvars -reconfigure -no-color -input=false'
+          command: 'cd terraform && terraform init -backend-config=armstro.co.backend.tfvars -reconfigure -no-color -input=false'
       - run:
           name: apply terraform
-          command: 'terraform apply -auto-approve -no-color -input=false'
+          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false'
 
   deploy:
     docker:
