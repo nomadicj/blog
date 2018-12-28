@@ -42,7 +42,7 @@ jobs:
           name: apply terraform
           command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var "domain=beta.armstro.co"'
 
-  deploy:
+  deploy-beta:
     docker:
       - image: circleci/python
     working_directory: ~/blog/jekyll-uno/_site/
