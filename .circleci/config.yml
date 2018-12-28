@@ -28,6 +28,20 @@ jobs:
           key: assets-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - ~/blog/jekyll-uno/_site/
+
+  environment:
+    working_directory: ~/blog
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
+      - run:
+          name: initiate terraform
+          command: 'terraform init -backend-config=armstro.co.backend.tfvars -reconfigure -no-color -input=false'
+      - run:
+          name: apply terraform
+          command: 'terraform apply -auto-approve -no-color -input=false'
+
   deploy:
     docker:
       - image: circleci/python
@@ -47,6 +61,7 @@ workflows:
   build_jekyll:
     jobs:
       - build
+      - environment
       - deploy:
           requires:
             - build
