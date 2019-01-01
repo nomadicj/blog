@@ -42,7 +42,7 @@ jobs:
           name: Renew Cert
           command: 'sh ~/blog/letsencrypt/cert.sh'
           environment:
-            DOMAIN: 'armstro.ca'
+            DOMAIN: 'beta.armstro.ca'
 
   environment-beta:
     working_directory: ~/blog
