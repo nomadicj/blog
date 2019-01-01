@@ -55,7 +55,7 @@ jobs:
           command: 'cd terraform && terraform init -backend-config=beta.armstro.co.backend.tfvars -reconfigure -no-color -input=false'
       - run:
           name: apply terraform
-          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var "domain=beta.armstro.co"'
+          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var "domain=beta.armstro.ca"'
 
   deploy-beta:
     docker:
