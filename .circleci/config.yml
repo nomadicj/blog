@@ -45,6 +45,7 @@ jobs:
             DOMAIN: 'armstro.ca'
             CERTDATAFILE: 'certData'
       - persist_to_workspace:
+          root: ~/
           paths:
             - certData
 
