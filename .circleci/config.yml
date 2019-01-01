@@ -65,7 +65,7 @@ jobs:
           command: export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`
       - run:
           name: apply terraform
-          command: cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=$certId'
+          command: eval "cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=$certId'"
 
   deploy:
     docker:
