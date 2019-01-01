@@ -50,7 +50,7 @@ resource "aws_cloudfront_distribution" "cdn" {
 
   viewer_certificate {
     minimum_protocol_version = "TLSv1.2_2018"
-    iam_certificate_id       = "arn:aws:iam::327297836487:server-certificate/cloudfront/armstro.ca-159"
+    iam_certificate_id       = "ASCAJCMBD7JSDKVR6XK46"
     ssl_support_method       = "sni-only"
   }
 }
