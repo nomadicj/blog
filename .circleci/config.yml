@@ -29,6 +29,23 @@ jobs:
           paths:
             - ~/blog/jekyll-uno/_site/
 
+  cert:
+    docker:
+      - image: certbot/dns-route53
+        environment:
+            DOMAIN: "armstro.ca"
+            BUILD: {{ .Environment.CIRCLE_BUILD_NUM }}
+            AWS_ACCESS_KEY_ID: {{ .Environment.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: {{ .Environment.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - checkout
+      - run:
+          name: Add AWS CLI
+          command: 'pip install awscli'
+      - run:
+          name: Renew Cert
+          command: 'sh ~/blog/letsencrypt/cert.sh'
+
   environment:
     working_directory: ~/blog
     docker:
