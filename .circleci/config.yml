@@ -30,6 +30,7 @@ jobs:
             - ~/blog/jekyll-uno/_site/
 
   cert:
+    working_directory: ~/blog
     docker:
       - image: certbot/dns-route53
     steps:
