@@ -59,7 +59,7 @@ jobs:
           command: 'cd terraform && terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false'
       - run:
           name: apply terraform
-          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var \'certId=\''
+          command: cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=ASCAIVCNXOWLMOCWRIXZE'
 
   deploy:
     docker:
