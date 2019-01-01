@@ -62,7 +62,7 @@ jobs:
           at: .
       - run:
           name: grep certId
-          command: export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`
+          command: eval "export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`"
       - run:
           name: apply terraform
           command: eval "cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=$certId'"
