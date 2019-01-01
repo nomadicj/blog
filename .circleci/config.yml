@@ -58,9 +58,14 @@ jobs:
       - run:
           name: initiate terraform
           command: 'cd terraform && terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false'
+      - attach_workspace:
+          at: .
+      - run:
+          name: grep certId
+          command: export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`
       - run:
           name: apply terraform
-          command: cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=ASCAIVCNXOWLMOCWRIXZE'
+          command: cd terraform && terraform apply -auto-approve -no-color -input=false -var 'certId=$certId'
 
   deploy:
     docker:
