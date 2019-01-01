@@ -32,11 +32,6 @@ jobs:
   cert:
     docker:
       - image: certbot/dns-route53
-        environment:
-            DOMAIN: "armstro.ca"
-            BUILD: $CIRCLE_BUILD_NUM
-            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
     steps:
       - checkout
       - run:
