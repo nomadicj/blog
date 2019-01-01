@@ -52,7 +52,7 @@ jobs:
       - checkout
       - run:
           name: initiate terraform
-          command: 'cd terraform && terraform init -backend-config=beta.armstro.co.backend.tfvars -reconfigure -no-color -input=false'
+          command: 'cd terraform && terraform init -backend-config=beta.armstro.ca.backend.tfvars -reconfigure -no-color -input=false'
       - run:
           name: apply terraform
           command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var "domain=beta.armstro.ca"'
