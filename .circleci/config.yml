@@ -29,6 +29,21 @@ jobs:
           paths:
             - ~/blog/jekyll-uno/_site/
 
+  cert:
+    working_directory: ~/blog
+    docker:
+      - image: certbot/dns-route53
+    steps:
+      - checkout
+      - run:
+          name: Add AWS CLI
+          command: 'pip install awscli'
+      - run:
+          name: Renew Cert
+          command: 'sh ~/blog/letsencrypt/cert.sh'
+          environment:
+            DOMAIN: 'armstro.ca'
+
   environment-beta:
     working_directory: ~/blog
     docker:
@@ -89,6 +104,7 @@ workflows:
   build_jekyll:
     jobs:
       - build
+      - cert
       - environment-beta
       - deploy-beta:
           requires:
