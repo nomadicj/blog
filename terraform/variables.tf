@@ -1,6 +1,6 @@
 variable "domain" {
   type    = "string"
-  default = "armstro.co"
+  default = "armstro.ca"
 }
 
 variable "aws_region" {

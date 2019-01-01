@@ -5,7 +5,7 @@ aws s3 sync s3://config.nomadicj/$DOMAIN/cert/ ./
 tar -C /etc/letsencrypt -xvf certbundle.tar
 
 certbot renew
-# certbot certonly -n --agree-tos --email admin@armstro.co --dns-route53 -d armstro.co
+# certbot certonly -n --agree-tos --email admin@$DOMAIN --dns-route53 -d $DOMAIN
 
 tar -C /etc/letsencrypt/ -cvf certbundle.tar ./
 
