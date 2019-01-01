@@ -43,9 +43,9 @@ jobs:
           command: 'sh ~/blog/letsencrypt/cert.sh'
           environment:
             DOMAIN: 'armstro.ca'
-            CERTDATAFILE: 'output/certData'
+            CERTDATAFILE: 'certData'
       - persist_to_workspace:
-          root: output
+          root: 
           paths:
             - certData
 
