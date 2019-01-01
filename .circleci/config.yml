@@ -43,6 +43,10 @@ jobs:
           command: 'sh ~/blog/letsencrypt/cert.sh'
           environment:
             DOMAIN: 'armstro.ca'
+            CERTDATAFILE: 'certData'
+      - persist_to_workspace:
+          paths:
+            - certData
 
   environment:
     working_directory: ~/blog
@@ -55,7 +59,7 @@ jobs:
           command: 'cd terraform && terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false'
       - run:
           name: apply terraform
-          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false'
+          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var \'certId=\''
 
   deploy:
     docker:
