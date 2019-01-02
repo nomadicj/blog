@@ -1,8 +1,10 @@
 variable "domain" {
   type    = "string"
-  default = "armstro.co"
+  default = "armstro.ca"
 }
 
 variable "aws_region" {
   default = "us-west-2"
 }
+
+variable "certId" {}

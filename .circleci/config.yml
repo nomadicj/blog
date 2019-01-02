@@ -43,47 +43,30 @@ jobs:
           command: 'sh ~/blog/letsencrypt/cert.sh'
           environment:
             DOMAIN: 'armstro.ca'
+            CERTDATAFILE: 'certData'
+      - persist_to_workspace:
+          root: .
+          paths:
+            - certData
 
-  environment-beta:
-    working_directory: ~/blog
+  environment:
+    working_directory: ~/blog/terraform
     docker:
       - image: hashicorp/terraform
     steps:
-      - checkout
+      - checkout:
+          path: ~/blog
       - run:
           name: initiate terraform
-          command: 'cd terraform && terraform init -backend-config=beta.armstro.co.backend.tfvars -reconfigure -no-color -input=false'
+          command: terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false
+      - attach_workspace:
+          at: .
+      - run:
+          name: grep certId
+          command: cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23 | sed 's/.*/certId = \"&\"/' > certId.tfvars
       - run:
           name: apply terraform
-          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false -var "domain=beta.armstro.co"'
-
-  deploy-beta:
-    docker:
-      - image: circleci/python
-    working_directory: ~/blog/jekyll-uno/_site/
-    steps:
-      - run:
-          name: Install awscli
-          command: 'sudo pip install awscli'
-      - restore_cache:
-          key: assets-{{ .Environment.CIRCLE_SHA1 }}
-      - run:
-          name: Deploy to S3
-          command: 'aws s3 sync ~/blog/jekyll-uno/_site/ s3://beta.armstro.co/ --delete --cache-control max-age=600'
-
-
-  environment-prod:
-    working_directory: ~/blog
-    docker:
-      - image: hashicorp/terraform
-    steps:
-      - checkout
-      - run:
-          name: initiate terraform
-          command: 'cd terraform && terraform init -backend-config=armstro.co.backend.tfvars -reconfigure -no-color -input=false'
-      - run:
-          name: apply terraform
-          command: 'cd terraform && terraform apply -auto-approve -no-color -input=false'
+          command: terraform apply -auto-approve -no-color -input=false -var-file certId.tfvars
 
   deploy:
     docker:
@@ -97,7 +80,7 @@ jobs:
           key: assets-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Deploy to S3
-          command: 'aws s3 sync ~/blog/jekyll-uno/_site/ s3://armstro.co/ --delete --cache-control max-age=600'
+          command: 'aws s3 sync ~/blog/jekyll-uno/_site/ s3://armstro.ca/ --delete --cache-control max-age=600'
 
 workflows:
   version: 2
@@ -105,21 +88,13 @@ workflows:
     jobs:
       - build
       - cert
-      - environment-beta
-      - deploy-beta:
+      - environment:
           requires:
-            - build
-            - environment-beta
-      - approve:
-          type: approval
-          requires:
-            - deploy-beta
+            - cert
+      - deploy:
           filters:
             branches:
               only: master
-      - environment-prod:
           requires:
-            - approve
-      - deploy:
-          requires:
-            - approve
+            - build
+            - environment

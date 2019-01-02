@@ -5,7 +5,11 @@ aws s3 sync s3://config.nomadicj/$DOMAIN/cert/ ./
 tar -C /etc/letsencrypt -xvf certbundle.tar
 
 certbot renew
-# certbot certonly -n --agree-tos --email admin@armstro.co --dns-route53 -d armstro.co
+
+if [ $? -ne 0 ]
+then
+  certbot certonly -n --agree-tos --email admin@$DOMAIN --dns-route53 -d $DOMAIN
+fi
 
 tar -C /etc/letsencrypt/ -cvf certbundle.tar ./
 
@@ -15,4 +19,5 @@ aws iam upload-server-certificate --path /cloudfront/ \
 --server-certificate-name $DOMAIN-$CIRCLE_BUILD_NUM \
 --certificate-body file:///etc/letsencrypt/live/$DOMAIN/cert.pem \
 --certificate-chain file:///etc/letsencrypt/live/$DOMAIN/chain.pem \
---private-key file:///etc/letsencrypt/live/$DOMAIN/privkey.pem
+--private-key file:///etc/letsencrypt/live/$DOMAIN/privkey.pem \
+| tee $CERTDATAFILE
