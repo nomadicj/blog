@@ -50,14 +50,14 @@ jobs:
             - certData
 
   environment:
-    working_directory: ~/blog
+    working_directory: ~/blog/terraform
     docker:
       - image: hashicorp/terraform
     steps:
       - checkout
       - run:
           name: initiate terraform
-          command: 'cd terraform && terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false'
+          command: terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false
       - attach_workspace:
           at: .
       - run:
@@ -65,13 +65,10 @@ jobs:
           command: cat certData
       - run:
           name: grep certId
-          # command: eval "export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23` && echo $certId"
-          command: echo "export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`" >> $BASH_ENV
-      - run: source $BASH_ENV
-      - run: echo $certId
+          command: eval "cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23 | sed 's/.*/certId&/' > certId "
       - run:
           name: apply terraform
-          command: eval "cd terraform && terraform apply -auto-approve -no-color -input=false -var certId=$certId"
+          command: terraform apply -auto-approve -no-color -input=false -var-file certId
 
   deploy:
     docker:
