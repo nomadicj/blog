@@ -50,12 +50,12 @@ jobs:
             - certData
 
   environment:
-    working_directory: ~/blog
+    working_directory: ~/blog/terraform
     docker:
       - image: hashicorp/terraform
     steps:
       - checkout:
-          path: ~/blog/terraform
+          path: ~/blog
       - run:
           name: initiate terraform
           command: terraform init -backend-config=armstro.ca.backend.tfvars -reconfigure -no-color -input=false
