@@ -67,6 +67,7 @@ jobs:
           name: grep certId
           # command: eval "export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23` && echo $certId"
           command: echo "export certId=`cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23`" >> $BASH_ENV
+      - run: source $BASH_ENV
       - run: echo $certId
       - run:
           name: apply terraform
