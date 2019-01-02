@@ -1,14 +1,14 @@
 # Site settings
 title: noamdic blogging
 description: 'Nomadic Blog; Another techie learning, applying and sharing.'
-url: 'https://armstro.co'
+url: 'https://armstro.ca'
 baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
 # disqus_shortname: 'your-disqus-name'
 
 author:
   name: 'James Armstrong'
-  email: j@armstro.co
+  email: j@armstro.ca
   twitter_username: nomadicj
   github_username:  nomadicj
   linkedin_username:  jnarmstrong
