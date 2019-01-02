@@ -66,7 +66,7 @@ jobs:
           command: cat certData
       - run:
           name: grep certId
-          command: eval "cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23 | sed 's/.*/certId = "&"/' > certId.tfvars"
+          command: eval "cat certData | grep ServerCertificateId | awk -F'[:]' '{print $2}' | cut -c3-23 | sed 's/.*/certId = \"&\"/' > certId.tfvars"
       - run:
           name: apply terraform
           command: terraform apply -auto-approve -no-color -input=false -var-file certId.tfvars
