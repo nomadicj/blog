@@ -1,3 +1,10 @@
+---
+title:  "Adhoc Engineering Project Flow"
+date:   2019-01-17 21:00:00
+categories: [leadership, agile, engineering, flow]
+tags: []
+---
+
 ## How do adhoc engineering projects work?
 
 ### People
