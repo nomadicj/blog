@@ -57,6 +57,16 @@
               </li>
             {% endif %}
 
+            {% if site.author.stackshare_username %}
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://stackshare.io/{{ site.author.stackshare_username }}/job-stack" title="{{ site.author.stackshare_username }} on StackShare" target="_blank">
+                  <i class="icon icon-social-stackshare"></i>
+                  <span class="label">StackShare</span>
+                </a>
+              </li>
+            {% endif %}
+
             {% if site.author.github_username %}
               <!-- GitHub -->
               <li class="navigation__item">

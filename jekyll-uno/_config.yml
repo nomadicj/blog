@@ -1,6 +1,6 @@
 # Site settings
-title: noamdic blogging
-description: 'Nomadic Blog; Another techie learning, applying and sharing.'
+title: nomadic blogging
+description: 'Nomadic Blog; Just another techie learning, applying and sharing.'
 url: 'https://armstro.ca'
 baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
@@ -10,8 +10,9 @@ author:
   name: 'James Armstrong'
   email: j@armstro.ca
   twitter_username: nomadicj
-  github_username:  nomadicj
-  linkedin_username:  jnarmstrong
+  github_username: nomadicj
+  linkedin_username: jnarmstrong
+  stackshare_username: nomadicj
 
 defaults:
   -
